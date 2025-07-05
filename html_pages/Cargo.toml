@@ -5,3 +5,4 @@ edition = "2024"
 
 [dependencies]
 chrono = "0.4" # Or whatever version you're using in your main Cargo.toml
+pages_components = {path = "../pages_components"}

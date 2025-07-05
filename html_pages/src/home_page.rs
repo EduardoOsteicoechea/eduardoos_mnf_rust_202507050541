@@ -1,21 +1,27 @@
-// html_pages/src/home_page.rs
-
 use super::page_template::{PAGE_BOTTOM, PAGE_CONTENT, PAGE_TOP};
-use pages_components::ButtonComponent; // Import the component struct
+use pages_components::ButtonComponent;
+use pages_components::TaskCard001;
 
 pub fn print_page(
     page_level_data: &[String],
     css_files_markup: &[String],
-    components_markup: &[String], // This will now include actual component HTML
+    components_markup: &[String],
     js_files_markup: &[String],
 ) -> String {
-    // Initialize a ButtonComponent (dummy arguments for now)
     let button = ButtonComponent::new(
-        vec![String::from("button_component.css")], // CSS file name from the component
-        vec![String::from("button_component.js")],  // JS file name from the component (body bottom)
-        Some(vec![String::from("button_component_head.js")]), // JS file name for head
-        None, // No session object for now
-        None, // No data object for now
+        vec![String::from("button_component.css")],
+        vec![String::from("button_component.js")],
+        Some(vec![String::from("button_component_head.js")]),
+        None,
+        None,
+    );
+
+    let task_card: TaskCard001 = TaskCard001::new(
+      vec![String::from("task_card_001.css")],
+      vec![String::from("task_card_001.js")],
+      None,
+      None,
+      None,
     );
 
     // Get the component's markup and its associated head/bottom JS/CSS
@@ -41,21 +47,32 @@ pub fn print_page(
 
     // Step 1: Format PAGE_TOP and PAGE_BOTTOM by filling their internal placeholders.
     let page_top_with_css_and_head_js = format!(
+        "{}\n{}\n{}\n",
         PAGE_TOP,
         css_files_markup = all_css_markup,
         js_files_markup = all_head_js_markup // Assuming PAGE_TOP has a placeholder for head JS
     );
 
     let page_bottom_with_js = format!(
+        "{}\n{}\n",
         PAGE_BOTTOM,
         js_files_markup = all_bottom_js_markup
     );
 
+    let task_card_markup = task_card.print_component_markup();
+
     // Step 2: Format PAGE_CONTENT with its specific variables.
     let page_content_with_data_components = format!(
+        "
+        {}\n
+        {}\n
+        {}\n
+        {}\n
+        ",
         PAGE_CONTENT,
         page_level_data = page_data_joined,
-        components_markup = all_components_markup
+        components_markup = all_components_markup,
+        task_card_markup = task_card_markup
     );
 
     // Step 3: Combine all the already formatted parts.

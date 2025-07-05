@@ -1,4 +1,4 @@
-// pages_components/src/components/button_component/button_component.rs
+// pages_components/src/components/button_component.rs
 
 // Rust doesn't have "classes" in the C# sense, but structs with methods
 // provide similar object-like behavior.
@@ -49,7 +49,7 @@ impl ButtonComponent {
     ) -> Self {
         // Read the HTML file content at compile time.
         // The path is relative to the `button_component.rs` file.
-        let component_markup = include_str!("button_component.html");
+        let component_markup = include_str!("button_component/button_component.html");
 
         // Generate a simple unique ID for this component instance.
         // In a real app, you might use a UUID generator or a more robust system.
@@ -80,7 +80,7 @@ impl ButtonComponent {
     pub fn print_styles_head_tags(&self) -> String {
         self.css_file_names
             .iter()
-            .map(|file_name| format!(r#"<link rel="stylesheet" href="/static/{}">"#, file_name))
+            .map(|file_name| format!(r#"<link rel="stylesheet" href="/{}">"#, file_name))
             .collect::<Vec<String>>()
             .join("\n")
     }
@@ -91,7 +91,7 @@ impl ButtonComponent {
             .as_ref() // Get an Option<&Vec<String>>
             .map_or(String::new(), |files| { // If Some, map; otherwise, empty string
                 files.iter()
-                    .map(|file_name| format!(r#"<script src="/static/{}"></script>"#, file_name))
+                    .map(|file_name| format!(r#"<script src="/{}"></script>"#, file_name))
                     .collect::<Vec<String>>()
                     .join("\n")
             })
@@ -101,7 +101,7 @@ impl ButtonComponent {
     pub fn print_javascript_bottom_tags(&self) -> String {
         self.js_file_names
             .iter()
-            .map(|file_name| format!(r#"<script src="/static/{}"></script>"#, file_name))
+            .map(|file_name| format!(r#"<script src="/{}"></script>"#, file_name))
             .collect::<Vec<String>>()
             .join("\n")
     }
