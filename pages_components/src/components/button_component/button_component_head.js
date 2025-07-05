@@ -1,0 +1,1 @@
+console.log("Button component head JS loaded early!");

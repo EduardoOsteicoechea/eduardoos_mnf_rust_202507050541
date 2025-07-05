@@ -1,0 +1,43 @@
+[package]
+name = "eduardoos_mnf_rust_202507050541"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+# Axum is a web application framework that focuses on ergonomics and modularity.
+# It's built on Tokio, a powerful asynchronous runtime for Rust.
+axum = "0.7"
+
+# Tokio is the standard asynchronous runtime for Rust. It provides the core
+# primitives for async operations (like tasks, timers, I/O).
+# The "full" feature enables all common features, including I/O, timers, and macros.
+tokio = { version = "1", features = ["full"] }
+
+# Serde is a powerful serialization/deserialization framework. We'll use it to
+# easily convert Rust data structures to JSON and vice-versa.
+# The "derive" feature allows automatic implementation of Serialize/Deserialize traits.
+serde = { version = "1", features = ["derive"] }
+
+# Serde_json is a specific implementation of Serde for JSON format.
+serde_json = "1"
+
+# Tower-http provides common HTTP services and middleware for Axum.
+# We'll use `tower-http::services::ServeDir` to easily serve static files.
+tower-http = { version = "0.5", features = ["fs"] } # "fs" feature is for file system services like ServeDir
+
+# Tracing is a framework for instrumenting Rust programs to collect diagnostic data.
+# Useful for logging and debugging.
+tracing = "0.1"
+# Tracing-subscriber provides an implementation of tracing's `Subscriber` trait
+# to process diagnostic data (e.g., print to console).
+tracing-subscriber = { version = "0.3", features = ["env-filter"] } # "env-filter" for filtering logs via environment variables
+
+# ADD THIS LINE for the chrono crate
+# Provides date and time functionalities.
+chrono = { version = "0.4", features = ["serde"] } # "serde" feature for easy serialization if needed later
+
+html_pages = { path = "html_pages" }
+pages_components = { path = "pages_components" } # Add this line
+
+[build-dependencies]
+fs_extra = "1.3" # For copying files and directories
